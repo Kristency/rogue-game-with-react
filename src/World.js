@@ -34,8 +34,33 @@ class World {
 		return this.entities[0]
 	}
 
+	isWall(dx, dy, entity) {
+		let { x, y } = entity
+		return (
+			this.worldmap[x + dx][y + dy] === 1 ||
+			this.worldmap[x + dx][y] === undefined ||
+			this.worldmap[x][y + dy] === undefined
+		)
+	}
+
 	movePlayer(dx, dy) {
-		this.player.move(dx, dy)
+		if (this.isWall(dx, dy, this.player)) {
+			console.log('Wall is blocking the path')
+		} else {
+			this.player.move(dx, dy)
+		}
+	}
+
+	moveToSpace(entity) {
+		for (let i = entity.x; i < this.width; i++) {
+			for (let j = entity.y; j < this.height; j++) {
+				if (this.worldmap[i][j] === 0) {
+					entity.x = i
+					entity.y = j
+					return
+				}
+			}
+		}
 	}
 
 	draw(context) {

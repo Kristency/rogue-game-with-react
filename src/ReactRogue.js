@@ -19,6 +19,7 @@ const ReactRogue = ({ width, height, tilesize }) => {
 		let newWorld = new World()
 		Object.assign(newWorld, world)
 		newWorld.createCellularMap()
+		newWorld.moveToSpace(world.player)
 		setWorld(newWorld)
 	}, [])
 
@@ -45,7 +46,7 @@ const ReactRogue = ({ width, height, tilesize }) => {
 			ref={canvasRef}
 			width={width * tilesize}
 			height={height * tilesize}
-			style={{ border: '1px solid black' }}
+			style={{ border: '1px solid black', background: 'dimGray' }}
 		></canvas>
 	)
 }
